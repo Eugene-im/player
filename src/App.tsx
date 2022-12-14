@@ -1,58 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { Library } from "components/Library";
+import chillHop from "components/AudioData";
+import { Player } from "components/Player";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from "app/services/audio/audioSlice";
+import { selectActive } from "app/services/audio/audioSelector";
+import styled from "styled-components";
 
-function App() {
+const StyledApp = styled.div`
+  display: flex;
+  align-items: space-between;
+  min-height: 100vh;
+  background: linear-gradient(78.83deg, #83c6f9 12.23%, #2196f3 89.93%);
+`;
+
+const data = chillHop();
+
+export const App = () => {
+  const dispatch = useDispatch();
+  const active = useSelector(selectActive);
+  useEffect(() => {
+    dispatch(setData(data));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <StyledApp>
+      <Library />
+      {active ? <Player /> : "loading"}
+    </StyledApp>
   );
-}
-
-export default App;
+};
