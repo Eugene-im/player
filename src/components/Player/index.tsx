@@ -60,6 +60,7 @@ export const Player = () => {
 
   useEffect(() => {
     loadNew();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   const handleNext = () => {

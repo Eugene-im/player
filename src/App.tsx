@@ -21,6 +21,7 @@ export const App = () => {
   const active = useSelector(selectActive);
   useEffect(() => {
     dispatch(setData(data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <StyledApp>
